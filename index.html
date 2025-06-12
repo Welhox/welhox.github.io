@@ -3,38 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>Casimir Lundberg - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- External CSS linked -->
+    
+
 </head>
 <body>
     <header>
-        <h1>Welcome to My Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <img id="profile-pic" src="assets/profile.jpg" alt="Casimir Lundberg Profile Picture">
+        <div class="header-text">
+            <h1>Casimir Lundberg</h1>
+            <p>Aviation Veteran Turned Full-Stack Developer</p>
+            
+            <div class="social-links">
+    <a class="social-button" href="mailto:casimir.lundberg@example.com">Email</a>
+    <a class="social-button" href="https://github.com/Welhox" target="_blank">GitHub</a>
+    <a class="social-button" href="https://linkedin.com/in/casimirlundberg" target="_blank">LinkedIn</a>
+</div>
+        </div>
     </header>
 
     <section id="about">
         <h2>About Me</h2>
-        <p>Write a brief introduction about yourself.</p>
+        <p>I am a former aviation professional and gate coordinator instructor with a deep appreciation for precision, accountability, and team collaboration. Since 2023, I've been fully immersed in software development at Hive Helsinki, focusing on C, C++, and modern web technologies like React, Fastify, and Prisma. My transition to tech is driven by a love for problem-solving and a passion for creating robust, user-focused solutions. I thrive under pressure, adapt quickly, and bring years of operational and instructional experience into every line of code I write.</p>
     </section>
 
     <section id="projects">
         <h2>Projects</h2>
-        <p>Display your work or projects here with links or images.</p>
+        <ul>
+            <li><strong>Transcendence</strong>: Full-stack app using Fastify, React, Prisma & Docker. Features user auth, 2FA, and tournament system.</li>
+            <li><strong>Custom HTTP Server (C++)</strong>: From-scratch HTTP/1.1 web server built for performance and concurrency.</li>
+            <li><strong>Bash-style Shell (C)</strong>: Fully functional shell with piping, redirection, and job control.</li>
+            <li><strong>Real-time Multiplayer Pong</strong>: Built with WebSockets, Docker, and game-state sync logic.</li>
+        </ul>
     </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Provide your contact details or social media links.</p>
-    </section>
-
-    <footer>
-        <p>Made with 💻 by Your Name</p>
+        <footer>
+        <p>Made with 💻 by Casimir Lundberg</p>
     </footer>
+
+    <script>
+
+        function typeText(element, text, speed = 5, callback = null) {
+            element.style.visibility = 'visible';
+            element.textContent = '';
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const aboutText = document.querySelector('#about p');
+            const projectList = document.querySelectorAll('#projects ul li');
+            const aboutContent = aboutText.textContent.trim();
+
+            projectList.forEach(li => {
+                li.dataset.originalText = li.textContent.trim();
+                li.textContent = '';
+                li.style.visibility = 'hidden';
+            });
+
+            typeText(aboutText, aboutContent, 5, () => {
+                function typeProjectItems(i) {
+                    if (i >= projectList.length) {
+                        
+                        return;
+                    }
+                    const li = projectList[i];
+                    typeText(li, li.dataset.originalText, 4, () => typeProjectItems(i + 1));
+                }
+
+                
+                typeProjectItems(0);
+            });
+        });
+    </script>
 </body>
 </html>
